@@ -334,8 +334,5 @@ RUN mkdir -p /opt/data
 # exit code. Without the wrapper-as-ENTRYPOINT, leading-dash args
 # like `--version` would be intercepted by /init's POSIX shell.
 # Adding this to force-create the config
-RUN mkdir -p /opt/data/.hermes && \
-    echo "model:\n  provider: \"openrouter\"\n  default: \"google/gemini-2.0-flash-001\"\n  base_url: \"https://openrouter.ai/api/v1\"\ngateway:\n  type: \"telegram\"" > /opt/data/config.yaml && \
-    echo "OPENROUTER_API_KEY=${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}\nTELEGRAM_BOT_TOKEN=${8697149233:AAGa_8j-Qm2T3IGPEp-6edZgBpHq8ii8MWk}\nTELEGRAM_ALLOWED_USERS=${7285553711}" > /opt/data/.env
 ENTRYPOINT [ "/init", "/opt/hermes/docker/main-wrapper.sh" ]
 CMD [ ]
