@@ -334,5 +334,7 @@ RUN mkdir -p /opt/data
 # exit code. Without the wrapper-as-ENTRYPOINT, leading-dash args
 # like `--version` would be intercepted by /init's POSIX shell.
 # Adding this to force-create the config
+COPY init-config.sh /etc/cont-init.d/03-init-config
+RUN chmod +x /etc/cont-init.d/03-init-config
 ENTRYPOINT [ "/init", "/opt/hermes/docker/main-wrapper.sh" ]
 CMD [ ]
