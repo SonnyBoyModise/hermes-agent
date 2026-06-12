@@ -5,11 +5,18 @@
 # =============================================================================
 # Model Configuration
 # =============================================================================
-model:
 
-  default: "nousresearch/hermes-3-llama-3.1-405b"  # Sets the default model target string
-  provider: "openrouter"                           # Forces routing through the OpenRouter provider engine
-  base_url: "https://openrouter.ai/api/v1"         # Re-maps standard completions to OpenRouter's edge gateway
+provider: "openrouter"
+base_url: "https://openrouter.ai/api/v1"
+model: "nousresearch/hermes-3-llama-3.1-405b"
+temperature: 0.7
+max_tokens: 4096
+
+# Fallback block for nested engine parsers
+llm:
+  provider: "openrouter"
+  api_base: "https://openrouter.ai/api/v1"
+  model: "nousresearch/hermes-3-llama-3.1-405b"
   
   # Inference provider selection:
   #   "auto"         - Auto-detect from credentials (default)
