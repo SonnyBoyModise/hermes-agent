@@ -186,7 +186,6 @@ RUN cd web && npm run build && \
 
 # ---------- Source code ----------
 # .dockerignore excludes node_modules, so the installs above survive.
-COPY --chown=hermes:hermes . .
 
 # ---------- Permissions ----------
 # Make install dir world-readable so any HERMES_UID can read it at runtime.
@@ -334,7 +333,15 @@ RUN mkdir -p /opt/data
 # exit code. Without the wrapper-as-ENTRYPOINT, leading-dash args
 # like `--version` would be intercepted by /init's POSIX shell.
 # Adding this to force-create the config
+
+# 1. The fixed copy line (no heavy chown processing) from line 189
+COPY . .
+
+# 2. Your custom configuration lines from earlier
 COPY init-config.sh /etc/cont-init.d/03-init-config
 RUN chmod +x /etc/cont-init.d/03-init-config
+
+# 3. The final startup sequence
 ENTRYPOINT [ "/init", "/opt/hermes/docker/main-wrapper.sh" ]
+CMD [ ]
 CMD [ ]
